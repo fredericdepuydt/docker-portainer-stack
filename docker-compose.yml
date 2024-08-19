@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    volumes:
+        - ./config/portainer:/data
+        - /var/run/docker.sock:/var/run/docker.sock
+        - /var/lib/docker/volumes:/var/lib/docker/volumes
+    restart: unless-stopped    
+    networks:
+      automation:
+        ipv4_address: ${DOCKER_PORTAINER_IP}
+
+networks:
+  automation:
+    external: true
