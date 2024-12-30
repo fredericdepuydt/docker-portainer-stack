@@ -12,6 +12,12 @@ services:
     networks:
       automation:
         ipv4_address: ${DOCKER_PORTAINER_IP}
+    healthcheck:
+      test: ["CMD", "portainer", "--health-check"]
+      interval: 600s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
 
 networks:
   automation:

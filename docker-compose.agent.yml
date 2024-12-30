@@ -1,7 +1,7 @@
 version: "3.9"
 
 services:
-  portainer:
+  portainer-agent:
     image: portainer/agent:latest
     container_name: portainer-agent
     volumes:
@@ -12,6 +12,12 @@ services:
     networks:
       automation:
         ipv4_address: ${DOCKER_PORTAINER_AGENT_IP}
+    healthcheck:
+      test: ["CMD", "agent", "--health-check"]
+      interval: 600s
+      timeout: 10s
+      retries: 3
+      start_period: 10s
 
 networks:
   automation:
